@@ -54,7 +54,8 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public void updateToDo(Long id, ToDoDTO toDoDTO) {
         Optional<ToDo> optionalToDo = toDoRepository.findById(id);
-        if (!optionalToDo.isPresent()) {
+
+        if (optionalToDo.isEmpty()) {
             throw new ResourceNotFoundException("Could not find todo for id " + id);
         }
 
