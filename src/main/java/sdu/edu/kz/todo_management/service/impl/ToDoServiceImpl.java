@@ -22,15 +22,6 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public void addToToDo(ToDoDTO toDoDto) {
         ToDo toDo = toDoMapper.toEntity(toDoDto);
-
-//        ToDo todo = modelmapper.map(toDoDto, ToDo.class);
-//        ToDo savedToDo = toDoRepository.save(toDo);
-//        ToDoDTO savedToDoDTO = modelmapper.map(savedToDo, ToDoDTO.class);
-
-//        if (toDo.getIsCompleted() != null) {
-//            toDo.setIsCompleted(false);
-//        }
-
         toDoRepository.save(toDo);
     }
 

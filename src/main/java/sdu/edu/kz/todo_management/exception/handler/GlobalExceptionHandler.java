@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private static final String RESOURCE_NOT_FOUND = "RESOURCE_NOT_FOUND";
-    private static final String INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR";
+    private static final String FORBIDDEN = "FORBIDDEN";
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest webRequest) {
@@ -28,15 +28,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
     public ResponseEntity<ErrorDTO> handleGenericException(Exception exception,
                                                                WebRequest webRequest) {
         ErrorDTO errorDetails = new ErrorDTO();
         errorDetails.setTimeStamp(LocalDateTime.now());
         errorDetails.setMessage(exception.getMessage());
         errorDetails.setDetails(webRequest.getDescription(false));
-        errorDetails.setErrorCode(INTERNAL_SERVER_ERROR);
+        errorDetails.setErrorCode(FORBIDDEN);
 
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
 }
