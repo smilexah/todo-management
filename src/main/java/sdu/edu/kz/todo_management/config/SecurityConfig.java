@@ -36,6 +36,7 @@ public class SecurityConfig {
 //                            httpRequest.requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN");
 //                            httpRequest.requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("ADMIN", "USER"); // or permitAll()
 //                            httpRequest.requestMatchers(HttpMethod.PATCH, "/api/**").hasAnyRole("ADMIN", "USER"); // or permitAll()
+                            httpRequest.requestMatchers("/api/auth/**").permitAll();
                             httpRequest
                                     .anyRequest().authenticated();
                         }
