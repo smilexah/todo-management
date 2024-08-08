@@ -8,11 +8,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sdu.edu.kz.todo_management.dto.ToDoDTO;
+import sdu.edu.kz.todo_management.entity.User;
 import sdu.edu.kz.todo_management.service.ToDoService;
 
 import java.util.List;
 
-@CrossOrigin("*")
 @Controller
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor

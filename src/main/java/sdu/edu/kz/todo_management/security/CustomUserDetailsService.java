@@ -1,6 +1,7 @@
 package sdu.edu.kz.todo_management.security;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
 
-        return new org.springframework.security.core.userdetails.User(usernameOrEmail, null, authorities);
+        return new org.springframework.security.core.userdetails.User(usernameOrEmail, user.getPassword(), authorities);
     }
 }
