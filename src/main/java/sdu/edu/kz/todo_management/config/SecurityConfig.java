@@ -13,15 +13,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import sdu.edu.kz.todo_management.security.JwtAuthenticationEntryPoint;
+import sdu.edu.kz.todo_management.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final UserDetailsService userDetailsService;
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+    private final JwtAuthenticationFilter authenticationFilter;
+
     @Bean
-    public PasswordEncoder passwordEncoder () {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -42,6 +48,12 @@ public class SecurityConfig {
                         }
                 )
                 .httpBasic(Customizer.withDefaults());
+
+        http.exceptionHandling(exception ->
+                exception.authenticationEntryPoint(authenticationEntryPoint));
+
+        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 

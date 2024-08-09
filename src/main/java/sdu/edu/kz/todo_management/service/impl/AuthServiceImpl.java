@@ -13,6 +13,7 @@ import sdu.edu.kz.todo_management.entity.User;
 import sdu.edu.kz.todo_management.exception.ToDoAPIException;
 import sdu.edu.kz.todo_management.repository.RoleRepository;
 import sdu.edu.kz.todo_management.repository.UserRepository;
+import sdu.edu.kz.todo_management.security.JwtTokenProvider;
 import sdu.edu.kz.todo_management.service.AuthService;
 
 import java.util.HashSet;
@@ -25,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider tokenProvider;
 
     @Override
     public String register(RegisterDTO registerDTO) {
@@ -62,6 +64,6 @@ public class AuthServiceImpl implements AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return "Login successfully!";
+        return tokenProvider.generateToken(authentication);
     }
 }
